@@ -27,6 +27,8 @@ router.get('/:id', async (req, res) => {
 
 // Create homepage item
 router.post('/', async (req, res) => {
+  
+
     const homepage = new Homepage({
         title: req.body.title
     });
@@ -60,15 +62,16 @@ router.patch('/:id', async (req, res) => {
 
 // Delete homepage item
 router.delete('/:id', async (req, res) => {
+ 
     try {
-        const homepage = await Homepage.findById(req.params.id);
-        if (homepage == null) {
+        const deletedHomepage = await Homepage.findByIdAndDelete(req.params.id);
+        if (!deletedHomepage) {
             return res.status(404).json({ message: 'Cannot find homepage' });
         }
-        await homepage.remove();
         res.json({ message: 'Deleted Homepage' });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error('Delete error:', err);
+        res.status(500).json({ message: 'Error deleting homepage' });
     }
 });
 

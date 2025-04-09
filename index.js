@@ -23,7 +23,7 @@ const homepageRouter = require('./Routes/Homepagex');
 app.use('/homepage', homepageRouter);
 
 // Start server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
